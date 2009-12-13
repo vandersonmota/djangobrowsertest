@@ -1,0 +1,27 @@
+djangobrowsertest is a way to test your application through a browser that doesn't leave
+attached to an testing tool. You can test with selenium, twill,
+zc.testbrowser etc. Most of the code here is borrowed with some minimum changes from:
+http://code.djangoproject.com/ticket/2879#comment:41
+
+Usage:
+
+Just make this import:
+
+>>> from djangobrowsertest.browsertest import BrowserTestCase
+
+and make your class inherit from it:
+
+>>> class MyTest(BrowserTestCase):
+... def setUp(self):
+...     super(MyTest, self).setUp() #starts the live server and all related stuff
+...
+... def tearDown(self):
+...     super(MyTest, self).tearDown() #kills the server thread and drops the database
+
+and voilá!
+
+
+if you have suggestions, drop me an email:
+vanderson.mota@gmail.com
+
+see ya!
