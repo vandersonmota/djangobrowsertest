@@ -80,21 +80,22 @@ class TestServerThread(threading.Thread):
         self._stopevent.set()
         threading.Thread.join(self, timeout)
         
-
-
-class BrowserTestCase(unittest.TestCase):
-    
-    def setup_test_server(self, address='127.0.0.1', port=8000):
+def setup_test_server(self, address='127.0.0.1', port=8000):
         """Creates a live test server object (instance of WSGIServer)."""
         self.server_thread = TestServerThread(address, port)
         self.server_thread.start()
         self.server_thread.started.wait()
         if self.server_thread.error:
             raise self.server_thread.error
-    
-    def stop_test_server(self):
+
+def stop_test_server(self):
         if self.server_thread:            
             self.server_thread.join()
+
+class BrowserTestCase(unittest.TestCase):
+     
+    setup_test_server = setup_test_server
+    stop_test_server = stop_test_server    
             
     def setUp(self):
         self.setup_test_server()
